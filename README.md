@@ -12,6 +12,6 @@ In this program, users can enter their information which will be encrypted and s
 
 ## Compile and execute
 
-- To compile the program, run `make -f mymake.mk`
+- To create an executable from the makefile, run `make -f mymake.mk`
 
 - To execute the program, run `./a.out`
