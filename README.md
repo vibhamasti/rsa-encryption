@@ -9,3 +9,9 @@ RSA is an asymmetric cryptographic algorithm used to encrypt and decrypt message
 ## Program
 
 In this program, users can enter their information which will be encrypted and stored in a file. To be able access their private data, their credentials will be verified and then the file will be decrypted.
+
+## Compile and execute
+
+- To compile the program, run `make -f mymake.mk`
+
+- To execute the program, run `./a.out`
