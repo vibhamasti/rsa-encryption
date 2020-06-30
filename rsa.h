@@ -14,8 +14,9 @@ class RSA {
 
     public:
     RSA();
-    long get_e();
-    long get_n();
+
+    string encrypt(string);
+    string decrypt(string);
     
     void print_stuff() {
         cout << "p: " << p << " q: " << q << endl;

@@ -4,6 +4,7 @@
 #include <iostream>
 #include <ctime>
 #include <stdlib.h>
+#include <cmath>
 
 #include "rsa.h"
 
@@ -99,6 +100,59 @@ long gcd(long large, long small) {
 // Function to tell if two numbers are coprime
 bool is_coprime(long a, long b) {
     return (gcd(a, b) == 1);
+}
+
+
+string RSA::encrypt(string m) {
+    string encrypted_message = "";
+
+    for (int i=0; m[i]; ++i) {
+        long m_num = m[i];
+
+        long en_num = 1;
+
+        /* m^e mod n */
+        for (int j=0; j<e; ++j) {
+            en_num = (en_num*m_num) % n;
+        }
+
+        encrypted_message += to_string(en_num) + string(" ");
+
+    }
+
+    return encrypted_message;    
+}
+
+string RSA::decrypt(string en_m) {
+    string en_num_as_str = "";
+    string decrypted_message = "";
+
+    for (int i=0; en_m[i]; ++i) {
+
+        // End of word
+        if (en_m[i] == ' ') {
+            long en_m_num = stol(en_num_as_str);
+            en_num_as_str = "";
+
+            long decr_num = 1;
+
+            /* m^d mod n */
+            for (int i=0; i<d; ++i) {
+                decr_num = (decr_num*en_m_num) % n;
+            }
+
+            // Convert message back to str
+            decrypted_message += (char) decr_num;
+
+        }
+
+        else {
+            en_num_as_str += en_m[i];
+        }
+
+    }
+
+    return decrypted_message;
 }
 
 #endif

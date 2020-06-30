@@ -20,13 +20,30 @@ Steps:
 4. Decrypt the message and display
 */
 
+/* 
+Use RC4 to encrypt the RSA key
+Use password for that
+MH5
+*/
 
 int main() {
     srand(time(0));
 
-    RSA rsa;
+    RSA rsa_pair;
 
-    rsa.print_stuff(); 
+    rsa_pair.print_stuff();
+
+    string m;
+
+    cout << "Enter message: ";
+
+    // cin.ignore();
+    getline(cin, m);
+
+    string en = rsa_pair.encrypt(m);
+
+    cout << "Message after encrption: " << rsa_pair.encrypt(m) << endl;
+    cout << "Decrypted message: " << rsa_pair.decrypt(en) << endl;
 
     return 0;
 }
