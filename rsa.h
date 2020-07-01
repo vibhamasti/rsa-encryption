@@ -15,7 +15,7 @@ class RSA {
 
     string base64_chars;
 
-    public:
+public:
     RSA();
     
     // TODO: make private
@@ -25,6 +25,7 @@ class RSA {
     string encrypt(string);         // Encrypts a message
     string decrypt(string);         // Decrypts a message
     
+    // TODO: delete function
     void print_stuff() {
         cout << "p: " << p << " q: " << q << endl;
         cout << "n: " << n << endl;

@@ -5,6 +5,7 @@
 #include <vector>
 
 #include "rsa.h"
+#include "rc4.h"
 #include "randomprime.h"
 
 using namespace std;
@@ -21,15 +22,18 @@ Steps:
 */
 
 /* 
-Use RC4 to encrypt the RSA key
+Use RSA to encrypt the RC4 key
 Use password for that
-MH5
+MH5??
 */
 
 int main() {
     srand(time(0));
 
     RSA rsa_pair;
+    //int key[] = {107, 101, 121};
+
+    RC4 rc4_key;
 
     rsa_pair.print_stuff();
 
@@ -40,15 +44,24 @@ int main() {
     // cin.ignore();
     getline(cin, m);
 
-    string en = rsa_pair.encrypt(m);
-
+    // Base 64
     string b64 = rsa_pair.b64_encode(m);
-
+    cout << "\nBase 64\n";
     cout << "Message in b64: " << b64 << endl;
-    cout << "Message bfrom b64 to ascii: " << rsa_pair.b64_decode(b64) << endl;
-    
+    cout << "Message from b64 to ascii: " << rsa_pair.b64_decode(b64) << endl;
+
+
+    // RSA
+    string en = rsa_pair.encrypt(m);
+    cout << "\nRSA\n";
     cout << "Message after encrption: " << rsa_pair.encrypt(m) << endl;
     cout << "Decrypted message: " << rsa_pair.decrypt(en) << endl;
+
+    // RC4
+    string rc4_en = rc4_key.encrypt(m);
+    cout << "\nRC4\n";
+    cout << "Message after encrption: " << rc4_en << endl;
+    cout << "Decrypted message: " << rc4_key.decrypt(rc4_en) << endl;
 
     return 0;
 }
