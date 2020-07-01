@@ -1,4 +1,4 @@
-# Makefile for Writing Make Files Example
+# Makefile for text-encryption
 # *****************************************************
 # Variables to control Makefile operation
 
@@ -13,7 +13,6 @@ TARGET = a.out
 $(TARGET): $(OBJFILES)
 	$(CXX) $(CXXFLAGS) -o $(TARGET) $(OBJFILES)
 
-# The main.o target can be written more simply
 
 main.o: main.cpp rsa.h helpers.h rc4.h
 	$(CXX) $(CXXFLAGS) -c main.cpp
