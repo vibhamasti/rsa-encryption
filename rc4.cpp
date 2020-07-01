@@ -4,6 +4,7 @@
 #include "rc4.h"
 
 RC4::RC4(int inp_key[], int len) {
+
     key_len = len;
     is_gen = false;
 
@@ -113,5 +114,17 @@ string RC4::decrypt(string ciphertext) {
     }
     return plaintext;
 }
+
+string RC4::get_key() {
+    string key_str = "";
+
+    for (int i=0; i<key_len; ++i) {
+        key_str += to_string(key[i]) + " ";
+    }
+    return key_str;
+}
+
+
+
 
 #endif

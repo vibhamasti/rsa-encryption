@@ -7,7 +7,9 @@
 
 using namespace std;
 
-#define CIPHER_LEN 8
+#include "helpers.h"
+
+#define CIPHER_LEN 256
 
 class RC4 {
     int S[CIPHER_LEN], K[CIPHER_LEN];
@@ -25,6 +27,9 @@ public:
     RC4(int [], int);
     string encrypt(string);
     string decrypt(string);
+
+    // TODO: delete/modify
+    string get_key();
 };
 
 #endif

@@ -6,7 +6,7 @@
 
 #include "rsa.h"
 #include "rc4.h"
-#include "randomprime.h"
+#include "helpers.h"
 
 using namespace std;
 
@@ -45,10 +45,10 @@ int main() {
     getline(cin, m);
 
     // Base 64
-    string b64 = rsa_pair.b64_encode(m);
+    string b64 = Base64::encode(m);
     cout << "\nBase 64\n";
     cout << "Message in b64: " << b64 << endl;
-    cout << "Message from b64 to ascii: " << rsa_pair.b64_decode(b64) << endl;
+    cout << "Message from b64 to ascii: " << Base64::decode(b64) << endl;
 
 
     // RSA
@@ -62,6 +62,7 @@ int main() {
     cout << "\nRC4\n";
     cout << "Message after encrption: " << rc4_en << endl;
     cout << "Decrypted message: " << rc4_key.decrypt(rc4_en) << endl;
+    cout << "key: " << rc4_key.get_key() << endl;
 
     return 0;
 }

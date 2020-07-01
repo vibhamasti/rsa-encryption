@@ -6,21 +6,15 @@
 #include <stdlib.h>
 #include <string>
 
-#include "randomprime.h"
+#include "helpers.h"
 
 using namespace std;
 
 class RSA {
     long p, q, n, e, d, phi;
 
-    string base64_chars;
-
 public:
     RSA();
-    
-    // TODO: make private
-    string b64_encode(string);
-    string b64_decode(string);
 
     string encrypt(string);         // Encrypts a message
     string decrypt(string);         // Decrypts a message

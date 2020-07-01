@@ -1,5 +1,5 @@
-#ifndef RANDOMPRIME_H
-#define RANDOMPRIME_H
+#ifndef HELPERS_H
+#define HELPERS_H
 
 #include <iostream>
 #include <stdlib.h>
@@ -23,5 +23,13 @@ public:
 };
 
 ostream& operator<<(ostream &, const RandomPrimeGenerator &);
+
+class Base64 {
+    static string base64_chars;
+public:
+    // TODO: make private
+    static string encode(string);
+    static string decode(string);
+};
 
 #endif
