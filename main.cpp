@@ -42,6 +42,11 @@ int main() {
 
     string en = rsa_pair.encrypt(m);
 
+    string b64 = rsa_pair.b64_encode(m);
+
+    cout << "Message in b64: " << b64 << endl;
+    cout << "Message bfrom b64 to ascii: " << rsa_pair.b64_decode(b64) << endl;
+    
     cout << "Message after encrption: " << rsa_pair.encrypt(m) << endl;
     cout << "Decrypted message: " << rsa_pair.decrypt(en) << endl;
 
