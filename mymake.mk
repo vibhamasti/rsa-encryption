@@ -4,7 +4,7 @@
 
 CXX = g++ -std=c++11
 CXXFLAGS = -Wall -g
-OBJFILES = main.o rsa.o randomprime.o
+OBJFILES = main.o rsa.o randomprime.o rc4.o
 TARGET = a.out
 
 # ****************************************************
@@ -15,12 +15,14 @@ $(TARGET): $(OBJFILES)
 
 # The main.o target can be written more simply
 
-main.o: main.cpp rsa.h randomprime.h
+main.o: main.cpp rsa.h randomprime.h rc4.h
 	$(CXX) $(CXXFLAGS) -c main.cpp
 
 rsa.o: rsa.h randomprime.h
 
 randomprime.o: randomprime.h
+
+rc4.o: rc4.h
 
 clean:
 	rm -f $(OBJFILES) $(TARGET) *~
