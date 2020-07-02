@@ -24,10 +24,10 @@ Steps:
 int main() {
     srand(time(0));
 
-    // RSA rsa_pair;
+    RSA rsa_pair;
     RC4 rc4_key;
 
-    //rsa_pair.print_stuff();
+    // rsa_pair.print_stuff();
 
     string m;
 
@@ -40,22 +40,17 @@ int main() {
     cout << "\nRC4\n";
     cout << "Message after encrption: " << rc4_en << endl;
     cout << "Decrypted message: " << rc4_key.decrypt(rc4_en) << endl;
-    string key = rc4_key.get_key();
-    cout << "key: " << key << endl;
+    
+    
+    // string key = rc4_key.get_key();
+    // cout << "key: " << key << endl;
 
-    // Encode and decode key
+    // Array of key numbers
     vector<int> key_vector = rc4_key.get_key_arr();
 
+    // RC4 key for the message
     string key_b64 = Base64::encode_int8(key_vector);
-    cout << "Encoded key: " << key_b64 << endl;
-
-    vector<int> decoded_b64 = Base64::decode_int8(key_b64);
-    int len = decoded_b64.size();
-
-    cout << "Decoded key: ";
-    for (int i=0; i<len; ++i) {
-        cout << decoded_b64[i] << " "; 
-    }
+    cout << "Key: " << key_b64 << endl;
 
     cout << endl;
 
@@ -67,13 +62,15 @@ int main() {
 
 
     // RSA
-    /* string en_key = rsa_pair.encrypt(key);
+    string en_key = rsa_pair.encrypt(key_b64);
     cout << "\nRSA\n";
     cout << "Key after encrption: " << en_key << endl;
     // cout << "Key after encrption: " << Base64::encode(en_key) << endl;
     cout << "Decrypted key: " << rsa_pair.decrypt(en_key) << endl;
 
-    cout << endl << "char: " << (((char) 129) & 0xff)<< endl; */
+    // cout << endl << "int max: " << INT_MAX << endl;
+    // cout << endl << "long max: " << LONG_MAX << endl;
+
 
     // cout << Base64::dec_to_b64(65) << endl;
 

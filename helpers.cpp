@@ -88,7 +88,7 @@ string Base64::encode_int8(vector<int> int_arr) {
     for (int i=0; i<len; i+=3) {
         val = 0, no_of_bits = 0;
 
-        // Read 3 chars at a time (24 bits)
+        // Read 3 ints at a time (24 bits)
         for (int j=i; int_arr[j] && j<i+3; ++j) {
             // Shift val left 8 bits and add the next 8 bits
             val = val << 8;
