@@ -22,8 +22,6 @@ public:
     long get_prime() const;
 };
 
-ostream& operator<<(ostream &, const RandomPrimeGenerator &);
-
 class Base64 {
     static string base64_chars;
 public:
@@ -36,5 +34,9 @@ public:
 
     static char get_b64_char(int);
 };
+
+ostream& operator<<(ostream &, const RandomPrimeGenerator &);
+long gcd(long, long);
+bool is_coprime(long, long);
 
 #endif

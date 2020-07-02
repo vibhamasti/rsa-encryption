@@ -1,5 +1,5 @@
-#ifndef RSA_H
-#define RSA_H
+#ifndef ENCRYPTION_H
+#define ENCRYPTION_H
 
 #include <iostream>
 #include <ctime>
@@ -9,6 +9,33 @@
 #include "helpers.h"
 
 using namespace std;
+
+#define CIPHER_LEN 256
+
+
+class RC4 {
+    int S[CIPHER_LEN], K[CIPHER_LEN];
+    int key[CIPHER_LEN], key_stream[CIPHER_LEN];
+    int t, key_len;
+
+    bool is_gen;
+
+    // Helper functions
+    void key_schedule();
+    void stream_gen(string);
+
+public:
+    RC4();
+    RC4(int [], int);
+    string encrypt(string);
+    string decrypt(string);
+
+    // TODO: delete/modify
+    int get_len();
+    
+    string get_key();
+    vector<int> get_key_arr();
+};
 
 class RSA {
     long p, q, n, e, d, phi;
@@ -28,7 +55,5 @@ public:
     }
 };
 
-long gcd(long, long);
-bool is_coprime(long, long);
 
 #endif

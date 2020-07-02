@@ -6,6 +6,25 @@
 #include <stdlib.h>
 #include <iostream>
 
+// Helper recursive function to find gcd
+long gcd(long large, long small) {
+    if (small > large) {
+        swap (large, small);
+    }
+    if (small != 0) {
+        return gcd(small, large%small);
+    }
+    else {
+        return large;
+    }
+}
+
+// Helpter function to tell if two numbers are coprime
+bool is_coprime(long a, long b) {
+    return (gcd(a, b) == 1);
+}
+
+
 // Initialise base64_chars
 string Base64::base64_chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
 

@@ -4,8 +4,7 @@
 
 #include <vector>
 
-#include "rsa.h"
-#include "rc4.h"
+#include "encryption.h"
 #include "helpers.h"
 
 using namespace std;

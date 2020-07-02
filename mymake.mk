@@ -4,7 +4,7 @@
 
 CXX = g++ -std=c++11
 CXXFLAGS = -Wall -g
-OBJFILES = main.o rsa.o helpers.o rc4.o
+OBJFILES = main.o helpers.o encryption.o
 TARGET = a.out
 
 # ****************************************************
@@ -14,14 +14,12 @@ $(TARGET): $(OBJFILES)
 	$(CXX) $(CXXFLAGS) -o $(TARGET) $(OBJFILES)
 
 
-main.o: main.cpp rsa.h helpers.h rc4.h
+main.o: main.cpp helpers.h encryption.h
 	$(CXX) $(CXXFLAGS) -c main.cpp
 
-rsa.o: rsa.h helpers.h
+encryption.o: encryption.h helpers.h
 
 helpers.o: helpers.h
-
-rc4.o: rc4.h helpers.h
 
 clean:
 	rm -f $(OBJFILES) $(TARGET) *~
