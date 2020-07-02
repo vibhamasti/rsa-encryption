@@ -25,6 +25,8 @@ Steps:
 int main() {
     srand(time(0));
 
+    UserHandler("users.txt");
+
     int ch;
     string cont = "";
 
