@@ -39,12 +39,12 @@ public:
 
 class RSA {
     long p, q, n, e, d, phi;
+    string decrypt(string);         // Decrypts a message
 
 public:
     RSA();
 
     string encrypt(string);         // Encrypts a message
-    string decrypt(string);         // Decrypts a message
     
     // TODO: delete function
     void print_stuff() {
