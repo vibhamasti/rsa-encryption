@@ -102,6 +102,7 @@ bool is_coprime(long a, long b) {
 }
 
 // Function to encrypt a message using public key
+// Shoulf return Base64 string
 string RSA::encrypt(string m) {
     string encrypted_message = "";
 
@@ -115,7 +116,8 @@ string RSA::encrypt(string m) {
             en_num = (en_num*m_num) % n;
         }
 
-        encrypted_message += to_string(en_num) + string(" ");
+        encrypted_message += to_string(en_num) + " ";
+        // encrypted_message += Base64::dec_to_b64(en_num) + ' ';
 
     }
 
@@ -132,6 +134,7 @@ string RSA::decrypt(string en_m) {
         // End of word
         if (en_m[i] == ' ') {
             long en_m_num = stol(en_num_as_str);
+            // long en_m_num = Base64::b64_to_dec(en_num_as_str);
             en_num_as_str = "";
 
             long decr_num = 1;

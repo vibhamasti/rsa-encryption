@@ -81,36 +81,26 @@ string RC4::encrypt(string plaintext) {
     }
     
     string ciphertext = "";
-    int cipher_char;
+    vector<int> cipher_chars;
 
     for (int i=0; plaintext[i]; ++i) {
-       cipher_char = (plaintext[i] ^ key_stream[i]);
-       ciphertext += to_string(cipher_char) + ' ';
+       cipher_chars.push_back((plaintext[i] ^ key_stream[i]));
     }
+
+    ciphertext = Base64::encode_int8(cipher_chars);
     return ciphertext;
 }
 
 string RC4::decrypt(string ciphertext) {
     string plaintext = "";
 
-    int plain_char, word_count=0;
-    string word = "";
+    vector<int> cipher_chars = Base64::decode_int8(ciphertext);
+    int len = cipher_chars.size();
 
-    for (int i=0; ciphertext[i]; ++i) {
+    for (int i=0; i<len; ++i) {
 
-        // End of word
-        if (ciphertext[i] == ' ') {
-            plain_char = stoi(word);
-            word = "";
+        plaintext += (cipher_chars[i] ^ key_stream[i]);
 
-            plaintext += (plain_char ^ key_stream[word_count]);
-            ++word_count;
-        }
-
-        else {
-            word += ciphertext[i];
-        }
-        
     }
     return plaintext;
 }
@@ -118,13 +108,27 @@ string RC4::decrypt(string ciphertext) {
 string RC4::get_key() {
     string key_str = "";
 
+    // cout << "key inside function: ";
     for (int i=0; i<key_len; ++i) {
-        key_str += to_string(key[i]) + " ";
+        /* string small_key = Base64::dec_to_b64(key[i]);
+        if (small_key.length() == 1) {
+            key_str += Base64::get_b64_char(0);
+        } */
+        // cout << key[i] << ' ';
+        key_str += to_string(key[i]) + ' ';
     }
+    // cout << endl;
     return key_str;
 }
 
+vector<int> RC4::get_key_arr() {
+    vector<int> key_vector(key, key+key_len);
+    return key_vector;
+}
 
 
+int RC4::get_len() {
+    return key_len;
+}
 
 #endif

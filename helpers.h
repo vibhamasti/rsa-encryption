@@ -30,6 +30,11 @@ public:
     // TODO: make private
     static string encode(string);
     static string decode(string);
+
+    static string encode_int8(vector<int> int_arr);
+    static vector<int> decode_int8(string);
+
+    static char get_b64_char(int);
 };
 
 #endif

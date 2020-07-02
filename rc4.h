@@ -29,7 +29,10 @@ public:
     string decrypt(string);
 
     // TODO: delete/modify
+    int get_len();
+    
     string get_key();
+    vector<int> get_key_arr();
 };
 
 #endif
