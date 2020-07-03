@@ -25,10 +25,10 @@ Steps:
 int main() {
     srand(time(0));
 
-    UserHandler("users.txt");
+    UserHandler user_handler("users.dat");
 
     int ch;
-    string cont = "";
+    char cont;
 
     do {
         cout << "\nMAIN MENU\n\n";
@@ -39,16 +39,19 @@ int main() {
 
         cout << "\nYour choice: ";
         cin >> ch;
+        cin.ignore();
 
         switch (ch) {
             case 1:{
                 cout << "You want to create a user\n";
-                User("vibhamasti", "password");
+                user_handler.create_user();
+                // User("vibhamasti", "password");
                 break;
             }
 
             case 2:{
                 cout << "You want to login\n";
+                user_handler.login_user();
                 break;
             }
 
@@ -63,10 +66,10 @@ int main() {
         }
 
         cout << "\nBack to main menu? (y/n): ";
-        cin.ignore();
-        getline(cin, cont);
+        
+        cin >> cont;
 
-        if (tolower(cont[0]) == 'n') break;
+        if (tolower(cont) == 'n') break;
 
     } while(true);
 

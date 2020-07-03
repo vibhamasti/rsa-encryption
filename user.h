@@ -10,8 +10,12 @@ using namespace std;
 #include "encryption.h"
 
 // TODO: store encrypted passwords
-class User {
+struct UserInfo {
     string username, password;
+};
+
+class User {
+    UserInfo user_info;
     RSA rsa_used;
     RC4 rc4_used;
 public:
@@ -19,11 +23,13 @@ public:
     User(string, string);
 };
 
+
 class UserHandler {
     fstream user_file;
     string file_name;
 public:
     UserHandler(string);
+    void login_user();
     void create_user();
 };
 

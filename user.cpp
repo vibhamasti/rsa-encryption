@@ -3,22 +3,24 @@
 
 #include "user.h"
 
-User::User(string user, string passw) {
-    username = user;
-    password = passw;
+User::User(string inp_username, string inp_password) {
+    user_info.username = inp_username;
+    user_info.password = inp_password;
     rsa_used.print_stuff();
 }
 
 UserHandler::UserHandler(string inp_file_name) {
     file_name = inp_file_name;
 
-    user_file.open(file_name.c_str(), ios::in | ios::out);
+    // Create file if it doesn't exist
+    user_file.open(file_name.c_str(), ios::binary | ios::in);
 
     if (!user_file) {
-        user_file.open(file_name.c_str(), ios::out);
+        user_file.open(file_name.c_str(), ios::binary | ios::out);
+        // cout << "File creation failed.\n";
 
         if (!user_file) {
-            cout << "File creation failed.\n";
+            cout << "File creation inside failed.\n";
         }
         else {
             user_file.close();
@@ -28,6 +30,98 @@ UserHandler::UserHandler(string inp_file_name) {
         user_file.close();
     }
     
+}
+
+void UserHandler::login_user() {
+    string inp_username;
+    cout << "Enter username: ";
+    getline(cin, inp_username);
+
+    user_file.open(file_name.c_str(), ios::binary | ios::in);
+    if (!user_file) {
+        cout << "File opening failed.\n";
+        return;
+    }
+
+    cout << "Going to check\n";
+
+    UserInfo temp;
+    bool login_verified = false;
+
+    while(user_file.read((char*) &temp, sizeof(temp))) {
+        if (inp_username == temp.username) {
+            cout << "Login successful.\n";
+            login_verified = true;
+            break;
+        }
+    }
+
+    if (!login_verified) {
+        cout << "User does not exist. Please create a user.\n";
+        user_file.close();
+        return;
+    }
+
+    cout << "Ready to check messages.\n";
+    cout << temp.username << ' ' << temp.password << endl;
+    user_file.close();
+}
+
+void UserHandler::create_user() {
+    string inp_username, inp_password;
+    cout << "Enter username: ";
+    getline(cin, inp_username);
+
+    user_file.open(file_name.c_str(), ios::binary | ios::in);
+
+    if (!user_file) {
+        cout << "File opening failed.\n";
+        return;
+    }
+
+    cout << "Going to check for username\n";
+
+    UserInfo temp;
+    bool user_exists = false;
+
+    while(user_file.read((char*) &temp, sizeof(temp))) {
+        if (inp_username == temp.username) {
+            user_exists = true;
+            break;
+        }
+    }
+
+    if (user_exists) {
+        cout << "User already exists. Please login.\n";
+        user_file.close();
+        return;
+    }
+
+    user_file.close();
+    fstream new_file;
+
+    new_file.open("new_file.txt", ios::binary | ios::out);
+    user_file.open(file_name.c_str(), ios::binary | ios::in);
+
+    cout << "Ready to create user.";
+    cout << "Enter password: ";
+    getline(cin, inp_password);
+
+    while (user_file.read((char*) &temp, sizeof(temp))) {
+        new_file.write((char*) &temp, sizeof(temp));
+    }
+
+    temp.username = inp_username;
+    temp.password = inp_password;
+
+    new_file.write((char*) &temp, sizeof(temp));
+
+    new_file.close();
+    user_file.close();
+
+    remove(file_name.c_str());
+    rename("new_file.txt", file_name.c_str());
+
 }
 
 #endif
