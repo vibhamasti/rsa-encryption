@@ -100,7 +100,7 @@ void UserHandler::create_user() {
     user_file.close();
     fstream new_file;
 
-    new_file.open("new_file.txt", ios::binary | ios::out);
+    new_file.open("new_file.dat", ios::binary | ios::out);
     user_file.open(file_name.c_str(), ios::binary | ios::in);
 
     cout << "Ready to create user.";
@@ -120,7 +120,7 @@ void UserHandler::create_user() {
     user_file.close();
 
     remove(file_name.c_str());
-    rename("new_file.txt", file_name.c_str());
+    rename("new_file.dat", file_name.c_str());
 
 }
 
