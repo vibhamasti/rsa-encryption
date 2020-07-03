@@ -4,7 +4,9 @@
 
 CXX = g++ -std=c++11
 CXXFLAGS = -Wall -g
-OBJFILES = main.o helpers.o encryption.o user.o
+OBJFILES = obj/main.o obj/helpers.o obj/encryption.o obj/user.o
+HEADERS = include/*
+INC = -I./include
 TARGET = a.out
 
 # ****************************************************
@@ -13,15 +15,19 @@ TARGET = a.out
 $(TARGET): $(OBJFILES)
 	$(CXX) $(CXXFLAGS) -o $(TARGET) $(OBJFILES)
 
+default: $(TARGET)
 
-main.o: main.cpp helpers.h encryption.h user.h
-	$(CXX) $(CXXFLAGS) -c main.cpp
+obj/main.o: src/main.cpp $(HEADERS)
+	$(CXX) $(CXXFLAGS) $(INC) -c src/main.cpp -o $@
 
-encryption.o: encryption.h helpers.h
+obj/encryption.o: src/encryption.cpp include/helpers.h
+	$(CXX) $(CXXFLAGS) $(INC) -c src/encryption.cpp -o $@
 
-helpers.o: helpers.h
+obj/helpers.o: src/helpers.cpp include/helpers.h
+	$(CXX) $(CXXFLAGS) $(INC) -c src/helpers.cpp -o $@
 
-user.o: encryption.h
+obj/user.o: src/user.cpp include/user.h include/encryption.h
+	$(CXX) $(CXXFLAGS) $(INC) -c src/user.cpp -o $@
 
 clean:
 	rm -f $(OBJFILES) $(TARGET) *~

@@ -25,7 +25,7 @@ Steps:
 int main() {
     srand(time(0));
 
-    UserHandler user_handler("users.dat");
+    UserHandler user_handler("../users/users.dat");
 
     int ch;
     char cont;
@@ -43,14 +43,12 @@ int main() {
 
         switch (ch) {
             case 1:{
-                cout << "You want to create a user\n";
                 user_handler.create_user();
                 // User("vibhamasti", "password");
                 break;
             }
 
             case 2:{
-                cout << "You want to login\n";
                 user_handler.login_user();
                 break;
             }

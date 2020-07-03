@@ -43,14 +43,12 @@ void UserHandler::login_user() {
         return;
     }
 
-    cout << "Going to check\n";
 
     UserInfo temp;
     bool login_verified = false;
 
     while(user_file.read((char*) &temp, sizeof(temp))) {
         if (inp_username == temp.username) {
-            cout << "Login successful.\n";
             login_verified = true;
             break;
         }
@@ -62,6 +60,10 @@ void UserHandler::login_user() {
         return;
     }
 
+
+    // TODO: check password
+
+    // Display messages of person
     cout << "Ready to check messages.\n";
     cout << temp.username << ' ' << temp.password << endl;
     user_file.close();
@@ -78,8 +80,6 @@ void UserHandler::create_user() {
         cout << "File opening failed.\n";
         return;
     }
-
-    cout << "Going to check for username\n";
 
     UserInfo temp;
     bool user_exists = false;
@@ -100,10 +100,9 @@ void UserHandler::create_user() {
     user_file.close();
     fstream new_file;
 
-    new_file.open("new_file.dat", ios::binary | ios::out);
+    new_file.open("../users/new_file.dat", ios::binary | ios::out);
     user_file.open(file_name.c_str(), ios::binary | ios::in);
 
-    cout << "Ready to create user.";
     cout << "Enter password: ";
     getline(cin, inp_password);
 
@@ -120,7 +119,9 @@ void UserHandler::create_user() {
     user_file.close();
 
     remove(file_name.c_str());
-    rename("new_file.dat", file_name.c_str());
+    rename("../users/new_file.dat", file_name.c_str());
+
+    cout << "User created successfully. Please login to view messages.\n";
 
 }
 
