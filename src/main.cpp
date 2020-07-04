@@ -25,7 +25,7 @@ Steps:
 int main() {
     srand(time(0));
 
-    UserHandler user_handler("../users/users.dat");
+    UserHandler user_handler("users/users.dat");
 
     int ch;
     char cont;

@@ -100,7 +100,7 @@ void UserHandler::create_user() {
     user_file.close();
     fstream new_file;
 
-    new_file.open("../users/new_file.dat", ios::binary | ios::out);
+    new_file.open("users/new_file.dat", ios::binary | ios::out);
     user_file.open(file_name.c_str(), ios::binary | ios::in);
 
     cout << "Enter password: ";
@@ -119,7 +119,7 @@ void UserHandler::create_user() {
     user_file.close();
 
     remove(file_name.c_str());
-    rename("../users/new_file.dat", file_name.c_str());
+    rename("users/new_file.dat", file_name.c_str());
 
     cout << "User created successfully. Please login to view messages.\n";
 
