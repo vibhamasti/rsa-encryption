@@ -1,5 +1,4 @@
 *.o
 *.out
 .vscode
-main
-users.dat
+*.dat
