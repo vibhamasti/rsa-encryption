@@ -277,4 +277,6 @@ string RSA::decrypt(string en_m) {
     return decrypted_message;
 }
 
+/* End of RSA functions */
+
 #endif

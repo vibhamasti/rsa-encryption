@@ -33,7 +33,7 @@ UserHandler::UserHandler(string inp_file_name) {
 }
 
 void UserHandler::login_user() {
-    string inp_username;
+    string inp_username, inp_password;
     UserInfo temp;
     bool login_verified = false;
 
@@ -60,8 +60,27 @@ void UserHandler::login_user() {
         return;
     }
 
+    login_verified = false;
+    // TODO: encrypt password using mh5 hash
+    for (int i=0; i<MAX_LOGIN_ATTEMPTS; ++i) {
+        if (i && MAX_LOGIN_ATTEMPTS-i != 1) {
+            cout << "\nWrong password. " << MAX_LOGIN_ATTEMPTS-i << " attempts remaining.\n";
+        }
+        else if (i && MAX_LOGIN_ATTEMPTS-i == 1) {
+            cout << "\nWrong password. " << MAX_LOGIN_ATTEMPTS-i << " attempt remaining.\n";
+        }
+        cout << "Enter password: ";
+        getline(cin, inp_password);
+        if (inp_password == temp.password) {
+            login_verified = true;
+            break;
+        }
+    }
 
-    // TODO: check password
+    if (!login_verified) {
+        cout << "Login attempts exceeded.\n";
+        return;
+    }
 
     user_file.close();
 
@@ -127,7 +146,45 @@ void UserHandler::create_user() {
 }
 
 void UserHandler::user_home(string inp_username) {
-    cout << "Welcome to your profile, " << inp_username << endl;
+    int ch;
+    char cont;
+
+    do {
+        cout << "Welcome to your profile, " << inp_username << endl;
+
+        cout << "1. View all messages\n";
+        cout << "2. Send a message\n";
+        cout << "3. Back to main menu\n";
+
+        cout << "\nYour choice: ";
+        cin >> ch;
+        cin.ignore();
+
+        switch (ch) {
+            case 1: {
+                cout << "View messages!\n";
+                break;
+            }
+            case 2: {
+                cout << "Send messages!\n";
+                break;
+            }
+            case 3: {
+                return;
+            }
+            default: {
+                cout << "Invalid choice.\n";
+                continue;
+            }
+        }
+
+        cout << "\nBack to user profile? (y/n): ";
+        cin >> cont;
+
+        if (tolower(cont) == 'n') break;
+
+    } while (true);
+    
 }
 
 #endif

@@ -44,19 +44,15 @@ int main() {
         switch (ch) {
             case 1:{
                 user_handler.create_user();
-                // User("vibhamasti", "password");
                 break;
             }
-
             case 2:{
                 user_handler.login_user();
                 break;
             }
-
             case 3:{
                 return 0;
             }
-
             default: {
                 cout << "Invalid choice.\n";
                 continue;
@@ -64,9 +60,7 @@ int main() {
         }
 
         cout << "\nBack to main menu? (y/n): ";
-        
         cin >> cont;
-
         if (tolower(cont) == 'n') break;
 
     } while(true);

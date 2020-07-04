@@ -9,6 +9,8 @@ using namespace std;
 
 #include "encryption.h"
 
+#define MAX_LOGIN_ATTEMPTS 3
+
 // TODO: store encrypted passwords
 struct UserInfo {
     string username, password;
