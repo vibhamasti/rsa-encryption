@@ -31,6 +31,7 @@ public:
     UserHandler(string);
     void login_user();
     void create_user();
+    void user_home(string);
 };
 
 #endif

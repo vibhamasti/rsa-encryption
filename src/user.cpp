@@ -34,6 +34,10 @@ UserHandler::UserHandler(string inp_file_name) {
 
 void UserHandler::login_user() {
     string inp_username;
+    UserInfo temp;
+    bool login_verified = false;
+
+
     cout << "Enter username: ";
     getline(cin, inp_username);
 
@@ -42,10 +46,6 @@ void UserHandler::login_user() {
         cout << "File opening failed.\n";
         return;
     }
-
-
-    UserInfo temp;
-    bool login_verified = false;
 
     while(user_file.read((char*) &temp, sizeof(temp))) {
         if (inp_username == temp.username) {
@@ -63,14 +63,18 @@ void UserHandler::login_user() {
 
     // TODO: check password
 
-    // Display messages of person
-    cout << "Ready to check messages.\n";
-    cout << temp.username << ' ' << temp.password << endl;
     user_file.close();
+
+    user_home(inp_username);
 }
 
 void UserHandler::create_user() {
     string inp_username, inp_password;
+    UserInfo temp;
+    bool user_exists = false;
+    fstream new_file;
+    string new_file_name = "users/new_file.dat";
+
     cout << "Enter username: ";
     getline(cin, inp_username);
 
@@ -80,9 +84,6 @@ void UserHandler::create_user() {
         cout << "File opening failed.\n";
         return;
     }
-
-    UserInfo temp;
-    bool user_exists = false;
 
     while(user_file.read((char*) &temp, sizeof(temp))) {
         if (inp_username == temp.username) {
@@ -98,9 +99,9 @@ void UserHandler::create_user() {
     }
 
     user_file.close();
-    fstream new_file;
+    
 
-    new_file.open("users/new_file.dat", ios::binary | ios::out);
+    new_file.open(new_file_name.c_str(), ios::binary | ios::out);
     user_file.open(file_name.c_str(), ios::binary | ios::in);
 
     cout << "Enter password: ";
@@ -119,10 +120,14 @@ void UserHandler::create_user() {
     user_file.close();
 
     remove(file_name.c_str());
-    rename("users/new_file.dat", file_name.c_str());
+    rename(new_file_name.c_str(), file_name.c_str());
 
     cout << "User created successfully. Please login to view messages.\n";
 
+}
+
+void UserHandler::user_home(string inp_username) {
+    cout << "Welcome to your profile, " << inp_username << endl;
 }
 
 #endif
