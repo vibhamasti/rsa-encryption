@@ -14,8 +14,12 @@ User::User() {
     user_info.password = "";
 }
 
-UserInfo User::get_user_info() {
-    return user_info;
+UserInfo User::get_username() {
+    return user_info.username;
+}
+
+UserInfo User::get_password() {
+    return user_info.password;
 }
 
 void User::view_messages() {
@@ -33,6 +37,7 @@ void User::view_messages() {
         return;
     }
 
+    // TODO: decrypt this
     while (getline(message_file, message)) {
         cout << message << endl;
     }
@@ -45,8 +50,8 @@ void User::send_message(User to_user, string message) {
 
     string copy_str;
 
-    to_message_name = "messages/" + to_user.get_user_info().username + "-messages.txt";
-    to_message_key = "messages/" + to_user.get_user_info().username + "-keys.txt";
+    to_message_name = "messages/" + to_user.get_username() + "-messages.txt";
+    to_message_key = "messages/" + to_user.get_username() + "-keys.txt";
 
     to_message_file.open(to_message_name.c_str(), ios::in);
 
@@ -58,9 +63,10 @@ void User::send_message(User to_user, string message) {
             new_message_file << copy_str << endl;
         }
 
+        // TODO: encrypt this
         new_message_file << "From: " << user_info.username << endl;
-
         new_message_file << message << endl;
+
         new_message_file.close();
         to_message_file.close();
 
@@ -72,6 +78,7 @@ void User::send_message(User to_user, string message) {
     else {
         to_message_file.open(to_message_name.c_str(), ios::out);
 
+        // TODO: encrypt this
         to_message_file << "From: " << user_info.username << endl;
         to_message_file << message << endl;
 
@@ -119,7 +126,7 @@ void UserHandler::login_user() {
     }
 
     while(user_file.read((char*) &temp, sizeof(temp))) {
-        if (inp_username == temp.get_user_info().username) {
+        if (inp_username == temp.get_username()) {
             login_verified = true;
             break;
         }
@@ -142,7 +149,7 @@ void UserHandler::login_user() {
         }
         cout << "Enter password: ";
         getline(cin, inp_password);
-        if (inp_password == temp.get_user_info().password) {
+        if (inp_password == temp.get_password()) {
             login_verified = true;
             break;
         }
@@ -176,7 +183,7 @@ void UserHandler::create_user() {
     }
 
     while(user_file.read((char*) &temp, sizeof(temp))) {
-        if (inp_username == temp.get_user_info().username) {
+        if (inp_username == temp.get_username()) {
             user_exists = true;
             break;
         }
@@ -222,7 +229,7 @@ void UserHandler::user_home(User temp) {
     char cont;
 
     do {
-        cout << "Welcome to your profile, " << temp.get_user_info().username << endl;
+        cout << "Welcome to your profile, " << temp.get_username() << endl;
 
         cout << "1. View all messages\n";
         cout << "2. Send a message\n";
@@ -278,7 +285,7 @@ void UserHandler::send_message_verify(User from_user) {
     }
 
     while(user_file.read((char*) &temp, sizeof(temp))) {
-        if (inp_username == temp.get_user_info().username) {
+        if (inp_username == temp.get_username()) {
             user_exists = true;
             // temp stores User information of the receiving user
             break;
