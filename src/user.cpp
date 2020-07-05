@@ -14,11 +14,11 @@ User::User() {
     user_info.password = "";
 }
 
-UserInfo User::get_username() {
+string User::get_username() {
     return user_info.username;
 }
 
-UserInfo User::get_password() {
+string User::get_password() {
     return user_info.password;
 }
 

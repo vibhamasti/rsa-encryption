@@ -26,8 +26,8 @@ public:
     User(string, string);
     void view_messages();       // TODO
     void send_message(User, string);    // TODO
-    UserInfo get_username();
-    UserInfo get_password();
+    string get_username();
+    string get_password();
 };
 
 class UserHandler {
