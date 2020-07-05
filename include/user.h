@@ -4,6 +4,7 @@
 #include <fstream>
 #include <iostream>
 #include <string>
+#include <sstream>
 
 using namespace std;
 
@@ -23,8 +24,10 @@ class User {
 public:
     User();
     User(string, string);
+    void view_messages();       // TODO
+    void send_message(User, string);    // TODO
+    UserInfo get_user_info();
 };
-
 
 class UserHandler {
     fstream user_file;
@@ -33,7 +36,9 @@ public:
     UserHandler(string);
     void login_user();
     void create_user();
-    void user_home(string);
+    void user_home(User);
+    void send_message_verify(User);    // TODO
 };
+
 
 #endif
