@@ -17,3 +17,6 @@ In this program, users' private data will be encrypted and stored using RC4, and
 - To create an executable from the makefile, run `make -f mymake.mk`
 
 - To execute the program, run `./a.out`
+
+### Note
+- After changing to Base64, not working properly; need to fix
